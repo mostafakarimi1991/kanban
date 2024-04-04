@@ -1,0 +1,7 @@
+name: pageSize
+in: query
+description: سایز صفحه
+required: false
+schema:
+  type: integer
+  format: int32

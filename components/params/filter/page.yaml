@@ -1,0 +1,7 @@
+name: page
+in: query
+description: شماره صفحه
+required: false
+schema:
+  type: integer
+  format: int32

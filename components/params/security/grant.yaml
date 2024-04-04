@@ -1,0 +1,9 @@
+name: grant
+in: header
+description: نوع هویت سنجی
+required: true
+schema:
+  type: string
+  enum:
+    - CODE
+    - TOKEN

@@ -1,0 +1,33 @@
+post:
+  summary: ثبت نام کاربر
+  operationId: registerUser
+  description: ثبت نام کاربر
+  tags:
+    - users
+  parameters:
+    - $ref: '../../components/params/security/code.yaml'
+  requestBody:
+    description: اطلاعات کاربر
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/users/user-register-request.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/users/verification-response.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'

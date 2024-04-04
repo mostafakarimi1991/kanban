@@ -1,0 +1,6 @@
+name: Authorization
+in: header
+description: توکن هویت سنجی
+required: false
+schema:
+  type: string

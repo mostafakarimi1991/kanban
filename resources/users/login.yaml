@@ -1,0 +1,47 @@
+post:
+  summary: هویت سنجی کاربر و ورود به سامانه
+  operationId: login
+  description: هویت سنجی کاربر و ورود به سامانه
+  tags:
+    - users
+  parameters:
+    - $ref: '../../components/params/security/grant.yaml'
+    - $ref: '../../components/params/security/code.yaml'
+    - $ref: '../../components/params/security/authorization.yaml'
+  requestBody:
+    description: نام کاربری و کلمه عبور
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/users/user-login-request.yaml'
+  responses:
+    '200':
+      description: اطلاعات ورود به سرویس ها
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/users/verification-response.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '401':
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '404':
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'

@@ -1,0 +1,7 @@
+name: code
+in: header
+description: کد یا کلمه عبور
+required: false
+schema:
+  type: string
+  format: password

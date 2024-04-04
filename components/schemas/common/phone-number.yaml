@@ -1,0 +1,5 @@
+type: string
+pattern: '^\d{11}$'
+minLength: 11
+maxLength: 11
+example: '09124830480'

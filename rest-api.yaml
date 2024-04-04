@@ -1,0 +1,18 @@
+openapi: '3.0.2'
+info:
+  title: سامانه کانبان
+  version: '0.0.1'
+  description: سامانه ای برای مدیریت و نظارت بر روند پیشرفت کارها
+servers:
+  - url: /api/v1
+tags:
+  - name: users
+    description: سرویس های مرتبط با کاربران
+paths:
+  # users
+  /users:
+    $ref: './resources/users/users.yaml'
+  /users/login:
+    $ref: './resources/users/login.yaml'
+  /users/change-password:
+    $ref: './resources/users/change-password.yaml'
