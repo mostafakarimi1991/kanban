@@ -27,3 +27,5 @@ paths:
     $ref: './resources/kanbans/getKanban.yaml'
   /kanbans/addKanban:
     $ref: './resources/kanbans/addKanban.yaml'
+  /kanbans/editKanban:
+    $ref: './resources/kanbans/editKanban.yaml'
