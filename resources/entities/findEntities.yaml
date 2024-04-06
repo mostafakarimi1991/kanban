@@ -1,0 +1,37 @@
+get:
+  summary: لیست هستارها
+  operationId: findEntities
+  description: لیست هستارها
+  tags:
+    - entities
+  requestBody:
+    description: اطلاعات جستجو
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/entities/findEntitiesRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/entities/findEntitiesResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '204':
+      description: There is no response
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/entityNotFoundException.yaml'

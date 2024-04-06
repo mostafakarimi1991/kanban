@@ -10,6 +10,10 @@ tags:
     description: سرویس های مرتبط با کاربران
   - name: kanbans
     description: سرویس های مرتبط با کانبان
+  - name: commonServices
+    description: سرویس های مشترک
+  - name: entities
+    description: سرویس های مرتبط با هستارها
 paths:
   # users
   /users:
@@ -29,3 +33,11 @@ paths:
     $ref: './resources/kanbans/addKanban.yaml'
   /kanbans/editKanban:
     $ref: './resources/kanbans/editKanban.yaml'
+  # commonServices
+  /findUsersByName:
+    $ref: './resources/users/findUsersByName.yaml'
+  /findGroupsByName:
+    $ref: './resources/groups/findGroupsByName.yaml'
+  # entities
+  /entites/findEntities:
+    $ref: './resources/entities/findEntities.yaml'
