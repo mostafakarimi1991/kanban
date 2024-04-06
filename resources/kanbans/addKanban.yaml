@@ -1,0 +1,31 @@
+post:
+  summary: اضافه کردن کانبان
+  operationId: addKanban
+  description: اضافه کردن کانبان
+  tags:
+    - kanbans
+  requestBody:
+    description: اطلاعات کانبان
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/kanbans/addKanbanRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/kanbans/addKanbanResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
