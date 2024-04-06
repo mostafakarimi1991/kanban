@@ -1,22 +1,22 @@
-get:
-  summary: لیست کانبان ها
-  operationId: getKanbans
-  description: لیست کانبان ها
+delete:
+  summary: حذف کانبان
+  operationId: deleteKanban
+  description: حذف کانبان
   tags:
     - kanbans
   requestBody:
-    description: اطلاعات جستجو
+    description: اطلاعات کانبان
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/kanbans/getKanbansRequestBody.yaml'
+          $ref: '../../components/schemas/kanbans/deleteKanbanRequestBody.yaml'
   responses:
     '200':
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/kanbans/getKanbansResponse.yaml'
+            $ref: '../../components/schemas/kanbans/deleteKanbanResponse.yaml'
     '400':
       description: Bad request
       content:
