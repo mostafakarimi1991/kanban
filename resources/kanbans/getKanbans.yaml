@@ -1,0 +1,37 @@
+get:
+  summary: لیست کانبان ها
+  operationId: getKanbans
+  description: لیست کانبان ها
+  tags:
+    - kanbans
+  requestBody:
+    description: اطلاعات کانبان
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/kanbans/getKanbansRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/kanbans/getKanbansResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '204':
+      description: There is no response
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/entityNotFoundException.yaml'

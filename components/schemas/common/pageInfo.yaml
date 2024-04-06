@@ -1,0 +1,9 @@
+type: object
+required:
+  - pageSize
+  - pageNumber
+properties:
+  pageSize:
+    type: integer
+  pageNumber:
+    type: integer
