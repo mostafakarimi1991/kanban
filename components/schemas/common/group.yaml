@@ -1,0 +1,13 @@
+type: object
+required:
+  - id
+  - groupName
+  - accessibility
+properties:
+  id:
+    type: string
+    pattern: uuid
+  groupName:
+    type: string
+  accessibility:
+    type: string

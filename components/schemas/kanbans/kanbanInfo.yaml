@@ -1,0 +1,33 @@
+type: object
+required:
+  - id
+  - name
+  - background
+  - users
+  - groups
+  - entities
+  - queues
+properties:
+  id:
+    type: string
+    pattern: uuid
+  name:
+    type: string
+  background:
+    type: string
+  users:
+    type: array
+    items:
+      $ref: '../common/user.yaml'
+  groups:
+    type: array
+    items:
+      $ref: '../common/group.yaml'
+  entities:
+    type: array
+    items:
+      $ref: '../entities/shortEntityInfo.yaml'
+  queues:
+    type: array
+    items:
+      $ref: '../queues/shortQueueInfo.yaml'

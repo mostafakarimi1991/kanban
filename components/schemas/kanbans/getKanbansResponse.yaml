@@ -3,4 +3,4 @@ properties:
   items:
     type: array
     items:
-      $ref: './kanban.yaml'
+      $ref: './shortKanbanInfo.yaml'

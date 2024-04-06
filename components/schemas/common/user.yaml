@@ -1,0 +1,13 @@
+type: object
+required:
+  - userId
+  - userName
+  - accessibility
+properties:
+  userId:
+    type: string
+    pattern: uuid
+  userName:
+    type: string
+  accessibility:
+    type: string

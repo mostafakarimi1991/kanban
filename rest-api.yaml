@@ -23,3 +23,5 @@ paths:
     $ref: './resources/kanbans/getKanbans.yaml'
   /kanbans/deleteKanban:
     $ref: './resources/kanbans/deleteKanban.yaml'
+  /kanbans/getKanban:
+    $ref: './resources/kanbans/getKanban.yaml'
