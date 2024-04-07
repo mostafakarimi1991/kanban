@@ -1,0 +1,5 @@
+type: object
+properties:
+  kanban:
+    type: object
+    $ref: './shortCardInfo.yaml'

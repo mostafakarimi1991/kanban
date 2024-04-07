@@ -1,0 +1,7 @@
+name: cardId
+in: query
+description: شناسه کارت
+required: false
+schema:
+  type: string
+  format: uuid

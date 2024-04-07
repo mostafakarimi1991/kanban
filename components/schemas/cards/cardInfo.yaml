@@ -1,0 +1,17 @@
+type: object
+required:
+  - cardId
+  - cardName
+  - cardPriority
+  - queue
+properties:
+  cardId:
+    type: string
+    pattern: uuid
+  cardName:
+    type: string
+  cardPriority:
+    type: integer
+  queue:
+    type: object
+    $ref: '../queues/queueInfo.yaml'

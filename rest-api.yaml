@@ -14,6 +14,8 @@ tags:
     description: سرویس های مشترک
   - name: entities
     description: سرویس های مرتبط با هستارها
+  - name: cards
+    description: سرویس های مرتبط با کارتها
 paths:
   # users
   /users:
@@ -43,3 +45,6 @@ paths:
   # entities
   /entites/findEntities:
     $ref: './resources/entities/findEntities.yaml'
+  #cards
+  /cards/changeCardPriority:
+    $ref: './resources/cards/changeCardPriority.yaml'

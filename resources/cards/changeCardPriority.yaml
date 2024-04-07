@@ -1,0 +1,37 @@
+put:
+  summary: تغییر ردیف کارت
+  operationId: changeCardPriority
+  description: تغییر ردیف کارت
+  tags:
+    - cards
+  requestBody:
+    description: اطلاعات کارت
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/cards/changeCardPriorityRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/entities/findEntitiesResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '404':
+      description: There is no response
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/entityNotFoundException.yaml'
