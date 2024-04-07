@@ -1,0 +1,13 @@
+type: object
+required:
+  - cardId
+  - cardName
+  - cardPriority
+properties:
+  cardId:
+    type: string
+    pattern: uuid
+  cardName:
+    type: string
+  cardPriority:
+    type: integer
