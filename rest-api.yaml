@@ -50,6 +50,8 @@ paths:
   #cards
   /cards/changeCardPriority:
     $ref: './resources/cards/changeCardPriority.yaml'
+  /cards/deleteCard:
+    $ref: './resources/cards/deleteCard.yaml'
   #queues
   /queues/deleteQueue:
     $ref: './resources/queues/deleteQueue.yaml'
