@@ -1,0 +1,6 @@
+name: entityName
+in: query
+description: نام هستار
+required: false
+schema:
+  type: string

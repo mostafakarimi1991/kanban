@@ -1,0 +1,9 @@
+name: sortType
+in: query
+description: نوع مرتب سازی
+required: false
+schema:
+  type: string
+  enum:
+    - ASC
+    - DESC

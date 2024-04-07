@@ -29,7 +29,7 @@ put:
         application/json:
           schema:
             $ref: '../../components/schemas/exceptions/error.yaml'
-    '204':
+    '404':
       description: There is no response
       content:
         application/json:

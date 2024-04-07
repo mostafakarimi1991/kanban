@@ -1,0 +1,7 @@
+name: kanbanId
+in: query
+description: شناسه کانبان
+required: false
+schema:
+  type: string
+  format: uuid

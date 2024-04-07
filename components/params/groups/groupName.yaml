@@ -1,0 +1,6 @@
+name: groupName
+in: query
+description: نام گروه
+required: false
+schema:
+  type: string

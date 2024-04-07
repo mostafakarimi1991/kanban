@@ -4,12 +4,8 @@ get:
   description: نمایش کانبان
   tags:
     - kanbans
-  requestBody:
-    description: اطلاعات جستجو
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/schemas/kanbans/getKanbanRequestBody.yaml'
+  parameters:
+    - $ref: '../../components/params/kanbans/kanbanId.yaml'
   responses:
     '200':
       description: Successful operation
@@ -29,7 +25,7 @@ get:
         application/json:
           schema:
             $ref: '../../components/schemas/exceptions/error.yaml'
-    '204':
+    '404':
       description: There is no response
       content:
         application/json:

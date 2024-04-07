@@ -1,9 +1,0 @@
-type: object
-required:
-  - pageInfo
-  - kanbanName
-properties:
-  pageInfo:
-    $ref: '../common/pageInfo.yaml'
-  kanbanName:
-    type: string

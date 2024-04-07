@@ -4,12 +4,12 @@ get:
   description: لیست کانبان ها
   tags:
     - kanbans
-  requestBody:
-    description: اطلاعات جستجو
-    content:
-      application/json:
-        schema:
-          $ref: '../../components/schemas/kanbans/getKanbansRequestBody.yaml'
+  parameters:
+    - $ref: '../../components/params/filter/pageNumber.yaml'
+    - $ref: '../../components/params/filter/pageSize.yaml'
+    - $ref: '../../components/params/filter/sortItem.yaml'
+    - $ref: '../../components/params/filter/sortType.yaml'
+    - $ref: '../../components/params/kanbans/kanbanName.yaml'
   responses:
     '200':
       description: Successful operation
@@ -29,7 +29,7 @@ get:
         application/json:
           schema:
             $ref: '../../components/schemas/exceptions/error.yaml'
-    '204':
+    '404':
       description: There is no response
       content:
         application/json:

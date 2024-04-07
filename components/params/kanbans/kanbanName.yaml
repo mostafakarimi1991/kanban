@@ -1,0 +1,6 @@
+name: kanbanName
+in: query
+description: نام کانبان
+required: false
+schema:
+  type: string
