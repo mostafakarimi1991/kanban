@@ -65,3 +65,5 @@ paths:
     $ref: './resources/queues/getQueue.yaml'
   /queues/editQueue:
     $ref: './resources/queues/editQueue.yaml'
+  /queues/addQueue:
+    $ref: './resources/queues/addQueue.yaml'

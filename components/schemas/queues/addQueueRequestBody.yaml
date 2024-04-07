@@ -1,0 +1,5 @@
+type: object
+properties:
+  queue:
+    type: object
+    $ref: './queueInfo.yaml'
