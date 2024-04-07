@@ -16,6 +16,8 @@ tags:
     description: سرویس های مرتبط با هستارها
   - name: cards
     description: سرویس های مرتبط با کارتها
+  - name: queues
+    description: سرویس های مرتبط با صف ها
 paths:
   # users
   /users:
@@ -48,3 +50,6 @@ paths:
   #cards
   /cards/changeCardPriority:
     $ref: './resources/cards/changeCardPriority.yaml'
+  #queues
+  /queues/deleteQueue:
+    $ref: './resources/queues/deleteQueue.yaml'
