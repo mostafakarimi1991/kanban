@@ -1,7 +1,7 @@
-delete:
-  summary: حذف کارت
-  operationId: deleteCard
-  description: حذف کارت
+put:
+  summary: بایگانی کارت
+  operationId: archiveCard
+  description: بایگانی کارت
   tags:
     - cards
   requestBody:
@@ -9,14 +9,14 @@ delete:
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/cards/deleteCardRequestBody.yaml'
+          $ref: '../../components/schemas/cards/archiveCardRequestBody.yaml'
   responses:
     '200':
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/cards/deleteCardResponse.yaml'
+            $ref: '../../components/schemas/cards/archiveCardResponse.yaml'
     '400':
       description: Bad request
       content:
