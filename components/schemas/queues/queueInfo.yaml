@@ -3,6 +3,9 @@ required:
   - queueId
   - queueName
   - queuePriority
+  - color
+  - hidden
+  - prove
   - cards
 properties:
   queueId:
@@ -12,6 +15,12 @@ properties:
     type: string
   queuePriority:
     type: integer
+  color:
+    type: string
+  hidden:
+    type: boolean
+  prove:
+    type: boolean
   cards:
     type: array
     items:
