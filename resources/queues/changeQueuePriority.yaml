@@ -1,0 +1,37 @@
+put:
+  summary: تغییر ردیف صف
+  operationId: changeQueuePriority
+  description: تغییر ردیف صف
+  tags:
+    - queues
+  requestBody:
+    description: اطلاعات صف
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/queues/changeQueuePriorityRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/queues/changeQueuePriorityResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '404':
+      description: There is no response
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/entityNotFoundException.yaml'

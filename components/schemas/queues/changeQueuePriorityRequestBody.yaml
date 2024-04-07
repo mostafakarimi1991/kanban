@@ -1,5 +1,5 @@
 type: object
 properties:
-  card:
+  queue:
     type: object
-    $ref: './shortCardInfo.yaml'
+    $ref: './queueInfo.yaml'
