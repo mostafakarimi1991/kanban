@@ -63,3 +63,5 @@ paths:
     $ref: './resources/queues/changeQueuePriority.yaml'
   /queues/getQueue:
     $ref: './resources/queues/getQueue.yaml'
+  /queues/editQueue:
+    $ref: './resources/queues/editQueue.yaml'

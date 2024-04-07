@@ -2,4 +2,4 @@ type: object
 properties:
   queue:
     type: object
-    $ref: './queueInfo.yaml'
+    $ref: './shortQueueInfo.yaml'
