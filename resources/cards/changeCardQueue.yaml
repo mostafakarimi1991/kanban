@@ -1,7 +1,7 @@
 put:
-  summary: تغییر ردیف کارت
-  operationId: changeCardPriority
-  description: تغییر ردیف کارت
+  summary: تغییر صف کارت
+  operationId: changeCardQueue
+  description: تغییر صف کارت
   tags:
     - cards
   requestBody:
@@ -9,14 +9,14 @@ put:
     content:
       application/json:
         schema:
-          $ref: '../../components/schemas/cards/changeCardPriorityRequestBody.yaml'
+          $ref: '../../components/schemas/cards/changeCardQueueRequestBody.yaml'
   responses:
     '200':
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/cards/changeCardPriorityResponse.yaml'
+            $ref: '../../components/schemas/cards/changeCardQueueRResponse.yaml'
     '400':
       description: Bad request
       content:
