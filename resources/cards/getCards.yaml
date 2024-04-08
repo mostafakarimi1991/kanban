@@ -1,0 +1,35 @@
+get:
+  summary: نمایش کارت ها
+  operationId: getCards
+  description:  نمایش کارت ها
+  tags:
+    - cards
+  parameters:
+    - $ref: '../../components/params/cards/cardName.yaml'
+    - $ref: '../../components/params/cards/cardState.yaml'
+    - $ref: '../../components/params/kanbans/kanbanId.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/cards/getCardsResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '404':
+      description: There is no response
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/entityNotFoundException.yaml'

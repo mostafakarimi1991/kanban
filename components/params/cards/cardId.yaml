@@ -1,6 +1,6 @@
-name: id
+name: cardId
 in: query
-description: شناسه
+description: شناسه کارت
 required: false
 schema:
   type: string

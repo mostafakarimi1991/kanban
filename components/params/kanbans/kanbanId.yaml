@@ -1,6 +1,6 @@
-name: id
+name: kanbanId
 in: query
-description: شناسه
+description: شناسه کانبان
 required: false
 schema:
   type: string

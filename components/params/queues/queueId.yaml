@@ -1,6 +1,6 @@
-name: id
+name: queueId
 in: query
-description: شناسه
+description: شناسه صف
 required: false
 schema:
   type: string

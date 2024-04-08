@@ -1,5 +1,5 @@
 type: object
 properties:
-  kanban:
+  card:
     type: object
     $ref: './cardInfo.yaml'

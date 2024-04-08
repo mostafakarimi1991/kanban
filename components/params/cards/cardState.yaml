@@ -1,0 +1,10 @@
+name: cardState
+in: query
+description: وضعیت کارت
+required: false
+schema:
+  type: string
+  enum:
+    - BACKLOG
+    - KANBAN
+    - ARCHIVE

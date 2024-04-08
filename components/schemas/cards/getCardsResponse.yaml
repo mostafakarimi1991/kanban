@@ -1,0 +1,6 @@
+type: object
+properties:
+  cards:
+    type: array
+    items:
+      $ref: './shortCardInfo.yaml'
