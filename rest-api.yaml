@@ -18,6 +18,8 @@ tags:
     description: سرویس های مرتبط با کارتها
   - name: queues
     description: سرویس های مرتبط با صف ها
+  - name: labels
+    description: سرویس های مرتبط با برچسب ها
 paths:
   # users
   /users:
@@ -77,3 +79,6 @@ paths:
     $ref: './resources/queues/editQueue.yaml'
   /queues/addQueue:
     $ref: './resources/queues/addQueue.yaml'
+  #labels
+  /labels/addLabel:
+    $ref: './resources/labels/addLabel.yaml'

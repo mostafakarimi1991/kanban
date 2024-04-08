@@ -1,0 +1,37 @@
+post:
+  summary: اضافه کردن برچسب
+  operationId: addLabel
+  description: اضافه کردن برچسب
+  tags:
+    - labels
+  requestBody:
+    description: اطلاعات برچسب
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/labels/addLabelRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/labels/addLabelResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '404':
+      description: There is no response
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/entityNotFoundException.yaml'

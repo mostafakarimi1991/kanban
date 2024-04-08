@@ -3,4 +3,4 @@ properties:
   labels:
     type: array
     items:
-      $ref: '../common/label.yaml'
+      $ref: '../labels/label.yaml'

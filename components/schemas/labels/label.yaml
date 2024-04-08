@@ -2,9 +2,13 @@ type: object
 required:
   - labelId
   - labelName
+  - kanban
 properties:
   labelId:
     type: string
     pattern: uuid
   labelName:
     type: string
+  kanban:
+    type: object
+    $ref: '../kanbans/shortKanbanInfo.yaml'
