@@ -41,6 +41,8 @@ paths:
     $ref: './resources/kanbans/getKanbanQueues.yaml'
   /kanbans/getKanbanUsers:
     $ref: './resources/kanbans/getKanbanUsers.yaml'
+  /kanbans/getKanbanLabels:
+    $ref: './resources/kanbans/getKanbanLabels.yaml'
   # commonServices
   /findUsersByName:
     $ref: './resources/users/findUsersByName.yaml'

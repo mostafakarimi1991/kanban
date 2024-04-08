@@ -1,0 +1,33 @@
+get:
+  summary: نمایش برچسب های کانبان
+  operationId: getKanbanLabels
+  description: نمایش برچسب های کانبان
+  tags:
+    - kanbans
+  parameters:
+    - $ref: '../../components/params/kanbans/kanbanId.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/kanbans/getKanbanLabelsResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
+    '404':
+      description: There is no response
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/entityNotFoundException.yaml'

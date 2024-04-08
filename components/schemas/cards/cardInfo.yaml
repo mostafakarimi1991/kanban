@@ -33,7 +33,7 @@ properties:
   labels:
     type: array
     items:
-      $ref: './label.yaml'
+      $ref: '../common/label.yaml'
   attachments:
     type: array
     items:
