@@ -1,0 +1,6 @@
+name: dateTo
+in: query
+description: تا تاریخ
+required: false
+schema:
+  type: string

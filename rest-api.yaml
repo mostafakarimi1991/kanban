@@ -50,6 +50,8 @@ paths:
     $ref: './resources/users/findUsersByName.yaml'
   /findGroupsByName:
     $ref: './resources/groups/findGroupsByName.yaml'
+  /getLogs:
+    $ref: './resources/common/getLogs.yaml'
   # entities
   /entites/getEntities:
     $ref: './resources/entities/getEntities.yaml'

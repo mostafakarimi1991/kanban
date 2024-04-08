@@ -1,0 +1,11 @@
+name: operationType
+in: query
+description: توع عملیات
+required: false
+schema:
+  type: string
+  enum:
+    - ADD
+    - EDIT
+    - DELETE
+    - CHANGE

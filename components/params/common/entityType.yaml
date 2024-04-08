@@ -1,0 +1,12 @@
+name: entityType
+in: query
+description: توع موجودیت
+required: false
+schema:
+  type: string
+  enum:
+    - KANBAN
+    - CARD
+    - ENTITY
+    - LABEL
+    - QUEUE

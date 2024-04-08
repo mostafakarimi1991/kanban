@@ -1,0 +1,7 @@
+name: userId
+in: query
+description: شناسه کاربر
+required: false
+schema:
+  type: string
+  format: uuid

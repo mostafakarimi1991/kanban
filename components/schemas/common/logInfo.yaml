@@ -1,0 +1,32 @@
+type: object
+required:
+  - id
+  - date
+  - operationType
+  - entityType
+  - user
+properties:
+  id:
+    type: string
+    pattern: uuid
+  date:
+    type: string
+    format: date
+  operationType:
+    type: string
+    enum:
+      - ADD
+      - EDIT
+      - DELETE
+      - CHANGE
+  entityType:
+    type: string
+    enum:
+      - KANBAN
+      - CARD
+      - ENTITY
+      - LABEL
+      - QUEUE
+  user:
+    type: object
+    $ref: './user.yaml'
