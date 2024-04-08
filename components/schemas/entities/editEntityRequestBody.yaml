@@ -1,0 +1,5 @@
+type: object
+properties:
+  entity:
+    type: object
+    $ref: './entityInfo.yaml'

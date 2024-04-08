@@ -59,6 +59,8 @@ paths:
     $ref: './resources/entities/getEntity.yaml'
   /entites/addEntity:
     $ref: './resources/entities/addEntity.yaml'
+  /entites/editEntity:
+    $ref: './resources/entities/editEntity.yaml'
   #cards
   /cards/changeCardPriority:
     $ref: './resources/cards/changeCardPriority.yaml'
