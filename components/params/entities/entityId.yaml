@@ -1,0 +1,7 @@
+name: entityId
+in: query
+description: شناسه هستار
+required: false
+schema:
+  type: string
+  format: uuid

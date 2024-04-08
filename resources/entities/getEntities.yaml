@@ -12,7 +12,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/entities/findEntitiesResponse.yaml'
+            $ref: '../../components/schemas/entities/getEntitiesResponse.yaml'
     '400':
       description: Bad request
       content:

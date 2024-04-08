@@ -51,10 +51,12 @@ paths:
   /findGroupsByName:
     $ref: './resources/groups/findGroupsByName.yaml'
   # entities
-  /entites/findEntities:
-    $ref: './resources/entities/findEntities.yaml'
+  /entites/getEntities:
+    $ref: './resources/entities/getEntities.yaml'
   /entites/deleteEntity:
     $ref: './resources/entities/deleteEntity.yaml'
+  /entites/getEntity:
+    $ref: './resources/entities/getEntity.yaml'
   #cards
   /cards/changeCardPriority:
     $ref: './resources/cards/changeCardPriority.yaml'

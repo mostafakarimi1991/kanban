@@ -1,0 +1,21 @@
+type: object
+required:
+  - entityId
+  - entityName
+  - icon
+  - description
+  - link
+properties:
+  entityId:
+    type: string
+    pattern: uuid
+  entityName:
+    type: string
+  icon:
+    type: string
+    format: binary
+  description:
+    type: string
+  link:
+    type: string
+    format: uri
