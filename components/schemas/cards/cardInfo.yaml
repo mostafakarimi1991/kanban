@@ -4,6 +4,12 @@ required:
   - cardName
   - cardPriority
   - queue
+  - description
+  - users
+  - deadLine
+  - labels
+  - attachments
+  - link
 properties:
   cardId:
     type: string
@@ -15,3 +21,23 @@ properties:
   queue:
     type: object
     $ref: '../queues/queueInfo.yaml'
+  description:
+    type: string
+  users:
+    type: array
+    items:
+      $ref: '../common/user.yaml'
+  deadLine:
+    type: string
+    format: date
+  labels:
+    type: array
+    items:
+      $ref: './label.yaml'
+  attachments:
+    type: array
+    items:
+      $ref: './file.yaml'
+  link:
+    type: string
+    format: uri

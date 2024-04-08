@@ -56,6 +56,8 @@ paths:
     $ref: './resources/cards/archiveCard.yaml'
   /cards/changeCardQueue:
     $ref: './resources/cards/changeCardQueue.yaml'
+  /cards/getCard:
+    $ref: './resources/cards/getCard.yaml'
   #queues
   /queues/deleteQueue:
     $ref: './resources/queues/deleteQueue.yaml'

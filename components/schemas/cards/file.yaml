@@ -1,0 +1,14 @@
+type: object
+required:
+  - fileId
+  - fileName
+  - fileContent
+properties:
+  fileId:
+    type: string
+    pattern: uuid
+  fileName:
+    type: string
+  fileContent:
+    type: string
+    format: binary
