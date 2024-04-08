@@ -53,6 +53,8 @@ paths:
   # entities
   /entites/findEntities:
     $ref: './resources/entities/findEntities.yaml'
+  /entites/deleteEntity:
+    $ref: './resources/entities/deleteEntity.yaml'
   #cards
   /cards/changeCardPriority:
     $ref: './resources/cards/changeCardPriority.yaml'
