@@ -1,6 +1,6 @@
 type: object
 properties:
-  cards:
+  logInfo:
     type: array
     items:
       $ref: './logInfo.yaml'

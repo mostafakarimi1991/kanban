@@ -5,6 +5,10 @@ get:
   tags:
     - commonServices
   parameters:
+    - $ref: '../../components/params/filter/pageNumber.yaml'
+    - $ref: '../../components/params/filter/pageSize.yaml'
+    - $ref: '../../components/params/filter/sortItem.yaml'
+    - $ref: '../../components/params/filter/sortType.yaml'
     - $ref: '../../components/params/common/operationType.yaml'
     - $ref: '../../components/params/common/entityType.yaml'
     - $ref: '../../components/params/users/userId.yaml'

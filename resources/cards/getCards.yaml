@@ -5,6 +5,10 @@ get:
   tags:
     - cards
   parameters:
+    - $ref: '../../components/params/filter/pageNumber.yaml'
+    - $ref: '../../components/params/filter/pageSize.yaml'
+    - $ref: '../../components/params/filter/sortItem.yaml'
+    - $ref: '../../components/params/filter/sortType.yaml'
     - $ref: '../../components/params/cards/cardName.yaml'
     - $ref: '../../components/params/cards/cardState.yaml'
     - $ref: '../../components/params/kanbans/kanbanId.yaml'
