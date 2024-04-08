@@ -1,0 +1,31 @@
+post:
+  summary: اضافه کردن کارت
+  operationId: addCard
+  description: اضافه کردن کارت
+  tags:
+    - cards
+  requestBody:
+    description: اطلاعات کارت
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/cards/addCardRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/cards/addCardResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
