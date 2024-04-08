@@ -1,0 +1,31 @@
+post:
+  summary: اضافه کردن هستار
+  operationId: addEntity
+  description: اضافه کردن هستار
+  tags:
+    - entities
+  requestBody:
+    description: اطلاعات هستار
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/entities/addEntityRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/entities/addEntityResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
