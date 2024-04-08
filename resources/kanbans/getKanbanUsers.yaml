@@ -1,6 +1,6 @@
 get:
   summary: نمایش یوزرهای کانبان
-  operationId: findKanbanUsers
+  operationId: getKanbanUsers
   description: نمایش یوزرهای کانبان
   tags:
     - kanbans
@@ -12,7 +12,7 @@ get:
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/kanbans/findKanbanUsersResponse.yaml'
+            $ref: '../../components/schemas/kanbans/getKanbanUsersResponse.yaml'
     '400':
       description: Bad request
       content:
