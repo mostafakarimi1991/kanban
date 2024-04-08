@@ -84,3 +84,5 @@ paths:
     $ref: './resources/labels/addLabel.yaml'
   /labels/editLabel:
     $ref: './resources/labels/editLabel.yaml'
+  /labels/deleteLabel:
+    $ref: './resources/labels/deleteLabel.yaml'
