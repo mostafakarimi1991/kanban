@@ -1,5 +1,5 @@
 name: sortType
-in: query
+in: header
 description: نوع مرتب سازی
 required: false
 schema:

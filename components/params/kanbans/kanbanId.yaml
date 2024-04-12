@@ -1,7 +1,7 @@
-name: kanbanId
-in: query
+name: id
+in: path
 description: شناسه کانبان
-required: false
+required: true
 schema:
   type: string
   format: uuid

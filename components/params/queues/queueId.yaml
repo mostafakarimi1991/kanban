@@ -1,5 +1,5 @@
 name: queueId
-in: query
+in: path
 description: شناسه صف
 required: false
 schema:

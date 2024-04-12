@@ -29,72 +29,54 @@ paths:
   /users/change-password:
     $ref: './resources/users/change-password.yaml'
   # kanbans
-  /kanbans/getKanbans:
-    $ref: './resources/kanbans/getKanbans.yaml'
-  /kanbans/deleteKanban:
-    $ref: './resources/kanbans/deleteKanban.yaml'
-  /kanbans/getKanban:
-    $ref: './resources/kanbans/getKanban.yaml'
-  /kanbans/addKanban:
-    $ref: './resources/kanbans/addKanban.yaml'
-  /kanbans/editKanban:
-    $ref: './resources/kanbans/editKanban.yaml'
-  /kanbans/getKanbanQueues:
+  /kanbans:
+    $ref: './resources/kanbans/kanbans.yaml'
+  /kanban:
+    $ref: './resources/kanbans/kanban.yaml'
+  /kanban/{id}:
+    $ref: './resources/kanbans/deleteAndGetKanban.yaml'
+  /kanban/{id}/queues:
     $ref: './resources/kanbans/getKanbanQueues.yaml'
-  /kanbans/getKanbanUsers:
+  /kanban/{id}/users:
     $ref: './resources/kanbans/getKanbanUsers.yaml'
-  /kanbans/getKanbanLabels:
+  /kanban/{id}/labels:
     $ref: './resources/kanbans/getKanbanLabels.yaml'
   # commonServices
-  /findUsersByName:
+  /users/{name}:
     $ref: './resources/users/findUsersByName.yaml'
-  /findGroupsByName:
+  /groups/{name}:
     $ref: './resources/groups/findGroupsByName.yaml'
-  /getLogs:
-    $ref: './resources/common/getLogs.yaml'
+  /logs:
+    $ref: './resources/common/logs.yaml'
   # entities
-  /entites/getEntities:
+  /entities:
     $ref: './resources/entities/getEntities.yaml'
-  /entites/deleteEntity:
-    $ref: './resources/entities/deleteEntity.yaml'
-  /entites/getEntity:
-    $ref: './resources/entities/getEntity.yaml'
-  /entites/addEntity:
-    $ref: './resources/entities/addEntity.yaml'
-  /entites/editEntity:
-    $ref: './resources/entities/editEntity.yaml'
+  /entity:
+    $ref: './resources/entities/entity.yaml'
+  /entity/{id}:
+    $ref: './resources/entities/deleteAndGetEntity.yaml'
   #cards
-  /cards/changeCardPriority:
+  /card/changeCardPriority:
     $ref: './resources/cards/changeCardPriority.yaml'
-  /cards/deleteCard:
-    $ref: './resources/cards/deleteCard.yaml'
-  /cards/archiveCard:
+  /card/archiveCard:
     $ref: './resources/cards/archiveCard.yaml'
-  /cards/changeCardQueue:
+  /card/changeCardQueue:
     $ref: './resources/cards/changeCardQueue.yaml'
-  /cards/getCard:
-    $ref: './resources/cards/getCard.yaml'
-  /cards/addCard:
-    $ref: './resources/cards/addCard.yaml'
-  /cards/editCard:
-    $ref: './resources/cards/editCard.yaml'
-  /cards/getCards:
+  /card:
+    $ref: './resources/cards/card.yaml'
+  /card/{id}:
+    $ref: './resources/cards/deleteAndGetCard.yaml'
+  /cards:
     $ref: './resources/cards/getCards.yaml'
   #queues
-  /queues/deleteQueue:
-    $ref: './resources/queues/deleteQueue.yaml'
-  /queues/changeQueuePriority:
+  /queue:
+    $ref: './resources/queues/queue.yaml'
+  /queue/{id}:
+    $ref: './resources/queues/deleteAndGetQueue.yaml'
+  /queue/changeQueuePriority:
     $ref: './resources/queues/changeQueuePriority.yaml'
-  /queues/getQueue:
-    $ref: './resources/queues/getQueue.yaml'
-  /queues/editQueue:
-    $ref: './resources/queues/editQueue.yaml'
-  /queues/addQueue:
-    $ref: './resources/queues/addQueue.yaml'
   #labels
-  /labels/addLabel:
-    $ref: './resources/labels/addLabel.yaml'
-  /labels/editLabel:
-    $ref: './resources/labels/editLabel.yaml'
-  /labels/deleteLabel:
+  /label:
+    $ref: './resources/labels/label.yaml'
+  /label/{id}:
     $ref: './resources/labels/deleteLabel.yaml'

@@ -1,5 +1,5 @@
 name: sortItem
-in: query
+in: header
 description: نام فیلد مرتب سازی
 required: false
 schema:

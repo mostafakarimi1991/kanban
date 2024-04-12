@@ -1,5 +1,5 @@
 name: pageSize
-in: query
+in: header
 description: سایز صفحه
 required: false
 schema:

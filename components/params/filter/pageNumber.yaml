@@ -1,5 +1,5 @@
 name: page
-in: query
+in: header
 description: شماره صفحه
 required: false
 schema:

@@ -1,5 +1,5 @@
 name: cardId
-in: query
+in: path
 description: شناسه کارت
 required: false
 schema:

@@ -29,3 +29,34 @@ post:
         application/json:
           schema:
             $ref: '../../components/schemas/exceptions/error.yaml'
+put:
+  summary: ویرایش کارت
+  operationId: editCard
+  description: ویرایش کارت
+  tags:
+    - cards
+  requestBody:
+    description: اطلاعات کارت
+    content:
+      application/json:
+        schema:
+          $ref: '../../components/schemas/cards/editCardRequestBody.yaml'
+  responses:
+    '200':
+      description: Successful operation
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/cards/editCardResponse.yaml'
+    '400':
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/validation-error.yaml'
+    '500':
+      description: Internal server error
+      content:
+        application/json:
+          schema:
+            $ref: '../../components/schemas/exceptions/error.yaml'
