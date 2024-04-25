@@ -1,0 +1,6 @@
+name: registerUser
+in: query
+description: ثبت کننده
+required: false
+schema:
+  type: string

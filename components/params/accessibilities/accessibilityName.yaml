@@ -1,0 +1,6 @@
+name: accessibilityName
+in: query
+description: نام دسترسی
+required: false
+schema:
+  type: string

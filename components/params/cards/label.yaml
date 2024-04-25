@@ -1,6 +1,6 @@
-name: groupName
+name: label
 in: query
-description: نام گروه
+description: دسته بندی
 required: false
 schema:
   type: string

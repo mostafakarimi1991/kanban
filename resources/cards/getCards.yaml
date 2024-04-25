@@ -12,6 +12,14 @@ get:
     - $ref: '../../components/params/cards/cardName.yaml'
     - $ref: '../../components/params/cards/cardState.yaml'
     - $ref: '../../components/params/kanbans/kanbanId.yaml'
+    - $ref: '../../components/params/cards/manager.yaml'
+    - $ref: '../../components/params/cards/cardType.yaml'
+    - $ref: '../../components/params/cards/cardDescription.yaml'
+    - $ref: '../../components/params/cards/deadline.yaml'
+    - $ref: '../../components/params/cards/label.yaml'
+    - $ref: '../../components/params/cards/registerDate.yaml'
+    - $ref: '../../components/params/cards/registerUser.yaml'
+    - $ref: '../../components/params/cards/registerAccessibility.yaml'
   responses:
     '200':
       description: Successful operation

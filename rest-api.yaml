@@ -44,8 +44,8 @@ paths:
   # commonServices
   /users/{name}:
     $ref: './resources/users/findUsersByName.yaml'
-  /groups/{name}:
-    $ref: './resources/groups/findGroupsByName.yaml'
+  /accessibilities/{name}:
+    $ref: './resources/accessibilities/findAccessibilityByName.yaml'
   /logs:
     $ref: './resources/common/logs.yaml'
   # entities

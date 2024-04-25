@@ -1,18 +1,18 @@
 get:
-  summary: لیست گروه ها
-  operationId: findGroupsByName
-  description: لیست گروه ها
+  summary: لیست دسترسی ها
+  operationId: findAccessibilityByName
+  description: لیست دسترسی ها
   tags:
     - commonServices
   parameters:
-    - $ref: '../../components/params/groups/groupName.yaml'
+    - $ref: '../../components/params/accessibilities/accessibilityName.yaml'
   responses:
     '200':
       description: Successful operation
       content:
         application/json:
           schema:
-            $ref: '../../components/schemas/common/findGroupsByNameResponse.yaml'
+            $ref: '../../components/schemas/common/findAccessibilityByNameResponse.yaml'
     '400':
       description: Bad request
       content:

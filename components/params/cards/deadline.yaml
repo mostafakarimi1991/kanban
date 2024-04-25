@@ -1,0 +1,6 @@
+name: deadline
+in: query
+description: مهلت انجام
+required: false
+schema:
+  type: date

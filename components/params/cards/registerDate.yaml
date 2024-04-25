@@ -1,0 +1,6 @@
+name: registerDate
+in: query
+description: تاریخ ثبت
+required: false
+schema:
+  type: date

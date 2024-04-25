@@ -2,6 +2,7 @@ type: object
 required:
   - cardId
   - cardName
+  - cardType
   - cardPriority
   - queue
   - description
@@ -15,6 +16,8 @@ properties:
     type: string
     pattern: uuid
   cardName:
+    type: string
+  cardType:
     type: string
   cardPriority:
     type: integer

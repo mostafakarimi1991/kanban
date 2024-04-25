@@ -1,0 +1,6 @@
+name: manager
+in: query
+description: مسئول
+required: false
+schema:
+  type: string

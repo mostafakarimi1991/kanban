@@ -1,0 +1,6 @@
+name: cardDescription
+in: query
+description: توضیحات کارت
+required: false
+schema:
+  type: string

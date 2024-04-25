@@ -1,0 +1,6 @@
+name: registerAccessibility
+in: query
+description: سمت ثبت کننده
+required: false
+schema:
+  type: string

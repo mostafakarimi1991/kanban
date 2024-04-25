@@ -3,8 +3,8 @@ required:
   - id
   - name
   - background
-  - users
-  - groups
+  - userAccessibility
+  - managerAccessibility
   - entities
   - queues
 properties:
@@ -15,14 +15,14 @@ properties:
     type: string
   background:
     type: string
-  users:
+  userAccessibility:
     type: array
     items:
-      $ref: '../common/user.yaml'
-  groups:
+      $ref: '../common/accessibilityInfo.yaml'
+  managerAccessibility:
     type: array
     items:
-      $ref: '../common/group.yaml'
+      $ref: '../common/accessibilityInfo.yaml'
   entities:
     type: array
     items:

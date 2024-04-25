@@ -4,7 +4,9 @@ required:
   - entityName
   - icon
   - description
-  - link
+  - searchLink
+  - viewLink
+  - createLink
 properties:
   entityId:
     type: string
@@ -16,6 +18,12 @@ properties:
     format: binary
   description:
     type: string
-  link:
+  searchLink:
+    type: string
+    format: uri
+  viewLink:
+    type: string
+    format: uri
+  createLink:
     type: string
     format: uri
