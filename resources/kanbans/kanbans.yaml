@@ -10,7 +10,6 @@ get:
     - $ref: '../../components/params/filter/sortItem.yaml'
     - $ref: '../../components/params/filter/sortType.yaml'
     - $ref: '../../components/params/kanbans/kanbanName.yaml'
-    - $ref: '../../components/params/users/userId.yaml'
   responses:
     '200':
       description: Successful operation

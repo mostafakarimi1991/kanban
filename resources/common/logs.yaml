@@ -11,7 +11,7 @@ get:
     - $ref: '../../components/params/filter/sortType.yaml'
     - $ref: '../../components/params/common/operationType.yaml'
     - $ref: '../../components/params/common/entityType.yaml'
-    - $ref: '../../components/params/users/userId.yaml'
+    - $ref: '../../components/params/users/userName.yaml'
     - $ref: '../../components/params/common/dateFrom.yaml'
     - $ref: '../../components/params/common/dateTo.yaml'
   responses:
