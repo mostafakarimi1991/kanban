@@ -1,0 +1,1994 @@
+openapi: 3.0.2
+info:
+  title: سامانه کانبان
+  version: 0.0.1
+  description: سامانه ای برای مدیریت و نظارت بر روند پیشرفت کارها
+servers:
+  - url: /api/v1
+tags:
+  - name: users
+    description: سرویس های مرتبط با کاربران
+  - name: kanbans
+    description: سرویس های مرتبط با کانبان
+  - name: commonServices
+    description: سرویس های مشترک
+  - name: entities
+    description: سرویس های مرتبط با هستارها
+  - name: cards
+    description: سرویس های مرتبط با کارتها
+  - name: queues
+    description: سرویس های مرتبط با صف ها
+  - name: labels
+    description: سرویس های مرتبط با برچسب ها
+paths:
+  /users:
+    post:
+      summary: ثبت نام کاربر
+      operationId: registerUser
+      description: ثبت نام کاربر
+      tags:
+        - users
+      parameters:
+        - name: code
+          in: header
+          description: کد یا کلمه عبور
+          required: false
+          schema:
+            type: string
+            format: password
+      requestBody:
+        description: اطلاعات کاربر
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                  refreshToken:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /users/login:
+    post:
+      summary: هویت سنجی کاربر و ورود به سامانه
+      operationId: login
+      description: هویت سنجی کاربر و ورود به سامانه
+      tags:
+        - users
+      parameters:
+        - name: grant
+          in: header
+          description: نوع هویت سنجی
+          required: true
+          schema:
+            type: string
+            enum:
+              - CODE
+              - TOKEN
+        - $ref: '#/paths/~1users/post/parameters/0'
+        - name: Authorization
+          in: header
+          description: توکن هویت سنجی
+          required: false
+          schema:
+            type: string
+      requestBody:
+        description: نام کاربری و کلمه عبور
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+      responses:
+        '200':
+          description: اطلاعات ورود به سرویس ها
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users/post/responses/200/content/application~1json/schema'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /users/change-password:
+    post:
+      summary: تغییر کلمه عبور
+      operationId: changePassword
+      description: تغییر کلمه عبور
+      tags:
+        - users
+      parameters:
+        - $ref: '#/paths/~1users~1login/post/parameters/2'
+        - $ref: '#/paths/~1users/post/parameters/0'
+      requestBody:
+        description: نام کاربری و کلمه عبور جدید
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+      responses:
+        '200':
+          description: اطلاعات ورود به سرویس ها
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1users/post/responses/200/content/application~1json/schema'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /kanbans:
+    get:
+      summary: لیست کانبان ها
+      operationId: getKanbans
+      description: لیست کانبان ها
+      tags:
+        - kanbans
+      parameters:
+        - $ref: '#/paths/~1logs/get/parameters/0'
+        - $ref: '#/paths/~1logs/get/parameters/1'
+        - $ref: '#/paths/~1logs/get/parameters/2'
+        - $ref: '#/paths/~1logs/get/parameters/3'
+        - name: kanbanName
+          in: query
+          description: نام کانبان
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - name
+                      properties:
+                        id:
+                          type: string
+                          pattern: uuid
+                        name:
+                          type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /kanban:
+    post:
+      summary: اضافه کردن کانبان
+      operationId: addKanban
+      description: اضافه کردن کانبان
+      tags:
+        - kanbans
+      requestBody:
+        description: اطلاعات کانبان
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kanban:
+                  type: object
+                  $ref: '#/paths/~1kanban/put/requestBody/content/application~1json/schema/properties/kanban'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  kanban:
+                    type: object
+                    $ref: '#/paths/~1kanbans/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    put:
+      summary: ویرایش کردن کانبان
+      operationId: editKanban
+      description: ویرایش کردن کانبان
+      tags:
+        - kanbans
+      requestBody:
+        description: اطلاعات کانبان
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                kanban:
+                  type: object
+                  required:
+                    - id
+                    - name
+                    - background
+                    - userAccessibility
+                    - managerAccessibility
+                    - entities
+                    - queues
+                  properties:
+                    id:
+                      type: string
+                      pattern: uuid
+                    name:
+                      type: string
+                    background:
+                      type: string
+                    userAccessibility:
+                      type: array
+                      items:
+                        $ref: '#/paths/~1accessibilities~1%7Bname%7D/get/responses/200/content/application~1json/schema/properties/items/items'
+                    managerAccessibility:
+                      type: array
+                      items:
+                        $ref: '#/paths/~1accessibilities~1%7Bname%7D/get/responses/200/content/application~1json/schema/properties/items/items'
+                    entities:
+                      type: array
+                      items:
+                        $ref: '#/paths/~1entities/get/responses/200/content/application~1json/schema/properties/items/items'
+                    queues:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - queueId
+                          - queueName
+                        properties:
+                          queueId:
+                            type: string
+                            pattern: uuid
+                          queueName:
+                            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  kanban:
+                    type: object
+                    $ref: '#/paths/~1kanbans/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/kanban/{id}':
+    delete:
+      summary: حذف کانبان
+      operationId: deleteKanban
+      description: حذف کانبان
+      tags:
+        - kanbans
+      requestBody:
+        description: اطلاعات کانبان
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  pattern: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    get:
+      summary: نمایش کانبان
+      operationId: getKanban
+      description: نمایش کانبان
+      tags:
+        - kanbans
+      parameters:
+        - $ref: '#/paths/~1cards/get/parameters/6'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  kanban:
+                    type: object
+                    $ref: '#/paths/~1kanban/put/requestBody/content/application~1json/schema/properties/kanban'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/kanban/{id}/queues':
+    get:
+      summary: نمایش صف های کانبان
+      operationId: getKanbanQueues
+      description: نمایش صف های کانبان
+      tags:
+        - kanbans
+      parameters:
+        - $ref: '#/paths/~1cards/get/parameters/6'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - queueId
+                        - queueName
+                        - queuePriority
+                        - color
+                        - hidden
+                        - prove
+                        - cards
+                      properties:
+                        queueId:
+                          type: string
+                          pattern: uuid
+                        queueName:
+                          type: string
+                        queuePriority:
+                          type: integer
+                        color:
+                          type: string
+                        hidden:
+                          type: boolean
+                        prove:
+                          type: boolean
+                        cards:
+                          type: array
+                          items:
+                            $ref: '#/paths/~1cards/get/responses/200/content/application~1json/schema/properties/cards/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/kanban/{id}/users':
+    get:
+      summary: نمایش یوزرهای کانبان
+      operationId: getKanbanUsers
+      description: نمایش یوزرهای کانبان
+      tags:
+        - kanbans
+      parameters:
+        - $ref: '#/paths/~1cards/get/parameters/6'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  users:
+                    type: array
+                    items:
+                      $ref: '#/paths/~1users~1%7Bname%7D/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/kanban/{id}/labels':
+    get:
+      summary: نمایش برچسب های کانبان
+      operationId: getKanbanLabels
+      description: نمایش برچسب های کانبان
+      tags:
+        - kanbans
+      parameters:
+        - $ref: '#/paths/~1cards/get/parameters/6'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  labels:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - labelId
+                        - labelName
+                        - kanban
+                      properties:
+                        labelId:
+                          type: string
+                          pattern: uuid
+                        labelName:
+                          type: string
+                        kanban:
+                          type: object
+                          $ref: '#/paths/~1kanbans/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/users/{name}':
+    get:
+      summary: لیست کاربران
+      operationId: findUsersByName
+      description: لیست کاربران
+      tags:
+        - commonServices
+      parameters:
+        - $ref: '#/paths/~1logs/get/parameters/6'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - userId
+                        - userName
+                        - accessibility
+                      properties:
+                        userId:
+                          type: string
+                          pattern: uuid
+                        userName:
+                          type: string
+                        accessibility:
+                          type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/accessibilities/{name}':
+    get:
+      summary: لیست دسترسی ها
+      operationId: findAccessibilityByName
+      description: لیست دسترسی ها
+      tags:
+        - commonServices
+      parameters:
+        - name: accessibilityName
+          in: query
+          description: نام دسترسی
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - accessibility
+                      properties:
+                        id:
+                          type: string
+                          pattern: uuid
+                        accessibility:
+                          type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /logs:
+    get:
+      summary: رخداد نگاری
+      operationId: getLogs
+      description: رخداد نگاری
+      tags:
+        - commonServices
+      parameters:
+        - name: page
+          in: query
+          description: شماره صفحه
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: pageSize
+          in: query
+          description: سایز صفحه
+          required: false
+          schema:
+            type: integer
+            format: int32
+        - name: sortItem
+          in: query
+          description: نام فیلد مرتب سازی
+          required: false
+          schema:
+            type: string
+        - name: sortType
+          in: query
+          description: نوع مرتب سازی
+          required: false
+          schema:
+            type: string
+            enum:
+              - ASC
+              - DESC
+        - name: operationType
+          in: query
+          description: توع عملیات
+          required: false
+          schema:
+            type: string
+            enum:
+              - ADD
+              - EDIT
+              - DELETE
+              - CHANGE
+        - name: entityType
+          in: query
+          description: توع موجودیت
+          required: false
+          schema:
+            type: string
+            enum:
+              - KANBAN
+              - CARD
+              - ENTITY
+              - LABEL
+              - QUEUE
+        - name: userName
+          in: query
+          description: نام کاربر
+          required: false
+          schema:
+            type: string
+        - name: dateFrom
+          in: query
+          description: از تاریخ
+          required: false
+          schema:
+            type: string
+        - name: dateTo
+          in: query
+          description: تا تاریخ
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  logInfo:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - id
+                        - date
+                        - operationType
+                        - entityType
+                        - user
+                      properties:
+                        id:
+                          type: string
+                          pattern: uuid
+                        date:
+                          type: string
+                          format: date
+                        operationType:
+                          type: string
+                          enum:
+                            - ADD
+                            - EDIT
+                            - DELETE
+                            - CHANGE
+                        entityType:
+                          type: string
+                          enum:
+                            - KANBAN
+                            - CARD
+                            - ENTITY
+                            - LABEL
+                            - QUEUE
+                        user:
+                          type: object
+                          $ref: '#/paths/~1users~1%7Bname%7D/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  entityParam:
+                    type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+  /entities:
+    get:
+      summary: لیست هستارها
+      operationId: findEntities
+      description: لیست هستارها
+      tags:
+        - entities
+      parameters:
+        - $ref: '#/paths/~1logs/get/parameters/0'
+        - $ref: '#/paths/~1logs/get/parameters/1'
+        - $ref: '#/paths/~1logs/get/parameters/2'
+        - $ref: '#/paths/~1logs/get/parameters/3'
+        - name: entityName
+          in: query
+          description: نام هستار
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  items:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - entityId
+                        - entityName
+                      properties:
+                        entityId:
+                          type: string
+                          pattern: uuid
+                        entityName:
+                          type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /entity:
+    post:
+      summary: اضافه کردن هستار
+      operationId: addEntity
+      description: اضافه کردن هستار
+      tags:
+        - entities
+      requestBody:
+        description: اطلاعات هستار
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity:
+                  type: object
+                  $ref: '#/paths/~1entity/put/requestBody/content/application~1json/schema/properties/entity'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entity:
+                    type: object
+                    $ref: '#/paths/~1entities/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    put:
+      summary: ویرایش هستار
+      operationId: editEntity
+      description: ویرایش هستار
+      tags:
+        - entities
+      requestBody:
+        description: اطلاعات هستار
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                entity:
+                  type: object
+                  required:
+                    - entityId
+                    - entityName
+                    - icon
+                    - description
+                    - searchLink
+                    - viewLink
+                    - createLink
+                  properties:
+                    entityId:
+                      type: string
+                      pattern: uuid
+                    entityName:
+                      type: string
+                    icon:
+                      type: string
+                      format: binary
+                    description:
+                      type: string
+                    searchLink:
+                      type: string
+                      format: uri
+                    viewLink:
+                      type: string
+                      format: uri
+                    createLink:
+                      type: string
+                      format: uri
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entity:
+                    type: object
+                    $ref: '#/paths/~1entities/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/entity/{id}':
+    get:
+      summary: نمایش هستار
+      operationId: getEntity
+      description: نمایش هستار
+      tags:
+        - entities
+      parameters:
+        - name: entityId
+          in: path
+          description: شناسه هستار
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  entity:
+                    type: object
+                    $ref: '#/paths/~1entity/put/requestBody/content/application~1json/schema/properties/entity'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    delete:
+      summary: حذف هستار
+      operationId: deleteEntity
+      description: حذف هستار
+      tags:
+        - entities
+      requestBody:
+        description: اطلاعات هستار
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  pattern: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /card/changeCardPriority:
+    put:
+      summary: تغییر ردیف کارت
+      operationId: changeCardPriority
+      description: تغییر ردیف کارت
+      tags:
+        - cards
+      requestBody:
+        description: اطلاعات کارت
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card:
+                  type: object
+                  $ref: '#/paths/~1card/put/requestBody/content/application~1json/schema/properties/card'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  card:
+                    type: object
+                    $ref: '#/paths/~1cards/get/responses/200/content/application~1json/schema/properties/cards/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /card/archiveCard:
+    put:
+      summary: بایگانی کارت
+      operationId: archiveCard
+      description: بایگانی کارت
+      tags:
+        - cards
+      requestBody:
+        description: اطلاعات کارت
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  pattern: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /card/changeCardQueue:
+    put:
+      summary: تغییر صف کارت
+      operationId: changeCardQueue
+      description: تغییر صف کارت
+      tags:
+        - cards
+      requestBody:
+        description: اطلاعات کارت
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card:
+                  type: object
+                  $ref: '#/paths/~1card/put/requestBody/content/application~1json/schema/properties/card'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  card:
+                    type: object
+                    $ref: '#/paths/~1cards/get/responses/200/content/application~1json/schema/properties/cards/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /card:
+    post:
+      summary: اضافه کردن کارت
+      operationId: addCard
+      description: اضافه کردن کارت
+      tags:
+        - cards
+      requestBody:
+        description: اطلاعات کارت
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card:
+                  type: object
+                  $ref: '#/paths/~1card/put/requestBody/content/application~1json/schema/properties/card'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  card:
+                    type: object
+                    $ref: '#/paths/~1cards/get/responses/200/content/application~1json/schema/properties/cards/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    put:
+      summary: ویرایش کارت
+      operationId: editCard
+      description: ویرایش کارت
+      tags:
+        - cards
+      requestBody:
+        description: اطلاعات کارت
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                card:
+                  type: object
+                  required:
+                    - cardId
+                    - cardName
+                    - cardType
+                    - cardPriority
+                    - queue
+                    - description
+                    - users
+                    - deadLine
+                    - labels
+                    - attachments
+                    - link
+                  properties:
+                    cardId:
+                      type: string
+                      pattern: uuid
+                    cardName:
+                      type: string
+                    cardType:
+                      type: string
+                    cardPriority:
+                      type: integer
+                    queue:
+                      type: object
+                      $ref: '#/paths/~1kanban~1%7Bid%7D~1queues/get/responses/200/content/application~1json/schema/properties/items/items'
+                    description:
+                      type: string
+                    users:
+                      type: array
+                      items:
+                        $ref: '#/paths/~1users~1%7Bname%7D/get/responses/200/content/application~1json/schema/properties/items/items'
+                    deadLine:
+                      type: string
+                      format: date
+                    labels:
+                      type: array
+                      items:
+                        $ref: '#/paths/~1kanban~1%7Bid%7D~1labels/get/responses/200/content/application~1json/schema/properties/labels/items'
+                    attachments:
+                      type: array
+                      items:
+                        type: object
+                        required:
+                          - fileId
+                          - fileName
+                          - fileContent
+                        properties:
+                          fileId:
+                            type: string
+                            pattern: uuid
+                          fileName:
+                            type: string
+                          fileContent:
+                            type: string
+                            format: binary
+                    link:
+                      type: string
+                      format: uri
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  card:
+                    type: object
+                    $ref: '#/paths/~1cards/get/responses/200/content/application~1json/schema/properties/cards/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  params:
+                    type: object
+                    additionalProperties:
+                      type: string
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/card/{id}':
+    get:
+      summary: نمایش کارت
+      operationId: getCard
+      description: نمایش کارت
+      tags:
+        - cards
+      parameters:
+        - name: cardId
+          in: path
+          description: شناسه کارت
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  card:
+                    type: object
+                    $ref: '#/paths/~1card/put/requestBody/content/application~1json/schema/properties/card'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    delete:
+      summary: حذف کارت
+      operationId: deleteCard
+      description: حذف کارت
+      tags:
+        - cards
+      requestBody:
+        description: اطلاعات کارت
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  pattern: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /cards:
+    get:
+      summary: نمایش کارت ها
+      operationId: getCards
+      description: نمایش کارت ها
+      tags:
+        - cards
+      parameters:
+        - $ref: '#/paths/~1logs/get/parameters/0'
+        - $ref: '#/paths/~1logs/get/parameters/1'
+        - $ref: '#/paths/~1logs/get/parameters/2'
+        - $ref: '#/paths/~1logs/get/parameters/3'
+        - name: cardName
+          in: query
+          description: نام کارت
+          required: false
+          schema:
+            type: string
+        - name: cardState
+          in: query
+          description: وضعیت کارت
+          required: false
+          schema:
+            type: string
+            enum:
+              - BACKLOG
+              - KANBAN
+              - ARCHIVE
+        - name: id
+          in: path
+          description: شناسه کانبان
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: manager
+          in: query
+          description: مسئول
+          required: false
+          schema:
+            type: string
+        - name: cardType
+          in: query
+          description: نوع کارت
+          required: false
+          schema:
+            type: string
+        - name: cardDescription
+          in: query
+          description: توضیحات کارت
+          required: false
+          schema:
+            type: string
+        - name: deadline
+          in: query
+          description: مهلت انجام
+          required: false
+          schema:
+            type: date
+        - name: label
+          in: query
+          description: دسته بندی
+          required: false
+          schema:
+            type: string
+        - name: registerDate
+          in: query
+          description: تاریخ ثبت
+          required: false
+          schema:
+            type: date
+        - name: registerUser
+          in: query
+          description: ثبت کننده
+          required: false
+          schema:
+            type: string
+        - name: registerAccessibility
+          in: query
+          description: سمت ثبت کننده
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  cards:
+                    type: array
+                    items:
+                      type: object
+                      required:
+                        - cardId
+                        - cardName
+                        - cardPriority
+                      properties:
+                        cardId:
+                          type: string
+                          pattern: uuid
+                        cardName:
+                          type: string
+                        cardPriority:
+                          type: integer
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /queue:
+    post:
+      summary: اضافه کردن صف
+      operationId: addQueue
+      description: اضافه کردن صف
+      tags:
+        - queues
+      requestBody:
+        description: اطلاعات صف
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                queue:
+                  type: object
+                  $ref: '#/paths/~1kanban~1%7Bid%7D~1queues/get/responses/200/content/application~1json/schema/properties/items/items'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  queue:
+                    type: object
+                    $ref: '#/paths/~1kanban/put/requestBody/content/application~1json/schema/properties/kanban/properties/queues/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    put:
+      summary: ویرایش کردن صف
+      operationId: editQueue
+      description: ویرایش کردن صف
+      tags:
+        - queues
+      requestBody:
+        description: اطلاعات صف
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                queue:
+                  type: object
+                  $ref: '#/paths/~1kanban~1%7Bid%7D~1queues/get/responses/200/content/application~1json/schema/properties/items/items'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  queue:
+                    type: object
+                    $ref: '#/paths/~1kanban/put/requestBody/content/application~1json/schema/properties/kanban/properties/queues/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/queue/{id}':
+    delete:
+      summary: حذف صف
+      operationId: deleteQueue
+      description: حذف صف
+      tags:
+        - queues
+      requestBody:
+        description: اطلاعات صف
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  pattern: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    get:
+      summary: نمایش صف
+      operationId: getQueue
+      description: نمایش صف
+      tags:
+        - queues
+      parameters:
+        - name: queueId
+          in: path
+          description: شناسه صف
+          required: false
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  queue:
+                    type: object
+                    $ref: '#/paths/~1kanban~1%7Bid%7D~1queues/get/responses/200/content/application~1json/schema/properties/items/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /queue/changeQueuePriority:
+    put:
+      summary: تغییر ردیف صف
+      operationId: changeQueuePriority
+      description: تغییر ردیف صف
+      tags:
+        - queues
+      requestBody:
+        description: اطلاعات صف
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                queue:
+                  type: object
+                  $ref: '#/paths/~1kanban~1%7Bid%7D~1queues/get/responses/200/content/application~1json/schema/properties/items/items'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  queue:
+                    type: object
+                    $ref: '#/paths/~1kanban/put/requestBody/content/application~1json/schema/properties/kanban/properties/queues/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  /label:
+    post:
+      summary: اضافه کردن برچسب
+      operationId: addLabel
+      description: اضافه کردن برچسب
+      tags:
+        - labels
+      requestBody:
+        description: اطلاعات برچسب
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                label:
+                  type: object
+                  $ref: '#/paths/~1kanban~1%7Bid%7D~1labels/get/responses/200/content/application~1json/schema/properties/labels/items'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  label:
+                    type: object
+                    $ref: '#/paths/~1kanban~1%7Bid%7D~1labels/get/responses/200/content/application~1json/schema/properties/labels/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+    put:
+      summary: ویرایش برچسب
+      operationId: editLabel
+      description: ویرایش برچسب
+      tags:
+        - labels
+      requestBody:
+        description: اطلاعات برچسب
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                label:
+                  type: object
+                  $ref: '#/paths/~1kanban~1%7Bid%7D~1labels/get/responses/200/content/application~1json/schema/properties/labels/items'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  label:
+                    type: object
+                    $ref: '#/paths/~1kanban~1%7Bid%7D~1labels/get/responses/200/content/application~1json/schema/properties/labels/items'
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
+  '/label/{id}':
+    delete:
+      summary: حذف برچسب
+      operationId: deleteLabel
+      description: حذف برچسب
+      tags:
+        - labels
+      requestBody:
+        description: اطلاعات برچسب
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - id
+              properties:
+                id:
+                  type: string
+                  pattern: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: object
+                required:
+                  - response
+                properties:
+                  response:
+                    type: string
+        '400':
+          description: Bad request
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1card/put/responses/400/content/application~1json/schema'
+        '404':
+          description: There is no response
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/404/content/application~1json/schema'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/paths/~1logs/get/responses/500/content/application~1json/schema'
